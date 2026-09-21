@@ -8,7 +8,8 @@ namespace EnterPsi
     {
         static void Main(string[] args)
         {
-            PacienteController controller = new PacienteController();
+            PacienteController controllerPaciente = new PacienteController();
+            SessaoController controllerSessao = new SessaoController();
             bool rodando = true;
 
             while (rodando)
@@ -16,11 +17,14 @@ namespace EnterPsi
                 Console.WriteLine("\n========================================");
                 Console.WriteLine("       SISTEMA ENTERPSI (CLÍNICA)       ");
                 Console.WriteLine("========================================");
-                Console.WriteLine("1. Cadastrar Paciente (CRUD: Create)");
-                Console.WriteLine("2. Listar Pacientes (CRUD: Read)");
-                Console.WriteLine("3. Atualizar Demanda Clínica (CRUD: Update)");
-                Console.WriteLine("4. Excluir/Arquivar Paciente (CRUD: Delete)");
-                Console.WriteLine("5. Registrar Nova Sessão (GRASP: Creator)");
+                Console.WriteLine("1. Cadastrar Paciente (CRUD Paciente: Create)");
+                Console.WriteLine("2. Listar Pacientes (CRUD Paciente: Read)");
+                Console.WriteLine("3. Atualizar Demanda Clínica (CRUD Paciente: Update)");
+                Console.WriteLine("4. Excluir/Arquivar Paciente (CRUD Paciente: Delete)");
+                Console.WriteLine("5. Registrar Nova Sessão (CRUD Sessão: Create / GRASP: Creator)");
+                Console.WriteLine("6. Listar Sessões do Paciente (CRUD Sessão: Read)");
+                Console.WriteLine("7. Atualizar Anotação (CRUD Sessão: Update)");
+                Console.WriteLine("8. Excluir Sessão (CRUD Sessão: Delete)");
                 Console.WriteLine("0. Sair");
                 Console.WriteLine("----------------------------------------");
                 Console.Write("Escolha uma opção: ");
@@ -37,13 +41,12 @@ namespace EnterPsi
                         string responsavel = Console.ReadLine();
                         Console.Write("Demanda Clínica Inicial: ");
                         string demanda = Console.ReadLine();
-                        
-                        controller.CadastrarPaciente(nome, responsavel, demanda);
+                        controllerPaciente.CadastrarPaciente(nome, responsavel, demanda);
                         break;
 
                     case "2":
                         Console.WriteLine("--- LISTA DE PACIENTES ATIVOS ---");
-                        controller.ListarPacientes();
+                        controllerPaciente.ListarPacientes();
                         break;
 
                     case "3":
@@ -51,26 +54,23 @@ namespace EnterPsi
                         int idAtualizar = int.Parse(Console.ReadLine());
                         Console.Write("Qual a nova Demanda Clínica? ");
                         string novaDemanda = Console.ReadLine();
-                        
-                        controller.AtualizarDemanda(idAtualizar, novaDemanda);
+                        controllerPaciente.AtualizarDemanda(idAtualizar, novaDemanda);
                         break;
 
                     case "4":
                         Console.Write("Digite o ID do Paciente para excluir: ");
                         int idExcluir = int.Parse(Console.ReadLine());
-                        
-                        controller.ExcluirPaciente(idExcluir);
+                        controllerPaciente.ExcluirPaciente(idExcluir);
                         break;
 
                     case "5":
                         Console.Write("Digite o ID do Paciente atendido: ");
-                        int idSessao = int.Parse(Console.ReadLine());
+                        int idSessaoCreate = int.Parse(Console.ReadLine());
                         Console.Write("Anotações Clínicas da Sessão: ");
                         string anotacoes = Console.ReadLine();
                         
-                        // Buscando o paciente no banco (Singleton)
                         var banco = ConexaoBanco.GetInstancia();
-                        var paciente = banco.TabelaPacientes.Find(p => p.Id == idSessao);
+                        var paciente = banco.TabelaPacientes.Find(p => p.Id == idSessaoCreate);
                         
                         if(paciente != null) 
                         {
@@ -81,6 +81,30 @@ namespace EnterPsi
                         {
                             Console.WriteLine("Erro: Paciente não encontrado.");
                         }
+                        break;
+
+                    case "6":
+                        Console.Write("Digite o ID do Paciente para listar as sessões: ");
+                        int idSessaoRead = int.Parse(Console.ReadLine());
+                        controllerSessao.ListarSessoes(idSessaoRead);
+                        break;
+
+                    case "7":
+                        Console.Write("Digite o ID do Paciente: ");
+                        int idPacUpdate = int.Parse(Console.ReadLine());
+                        Console.Write("Digite o ID da Sessão que deseja atualizar: ");
+                        int idSessaoUpdate = int.Parse(Console.ReadLine());
+                        Console.Write("Nova anotação clínica: ");
+                        string novaAnotacao = Console.ReadLine();
+                        controllerSessao.AtualizarAnotacao(idPacUpdate, idSessaoUpdate, novaAnotacao);
+                        break;
+
+                    case "8":
+                        Console.Write("Digite o ID do Paciente: ");
+                        int idPacDelete = int.Parse(Console.ReadLine());
+                        Console.Write("Digite o ID da Sessão para excluir: ");
+                        int idSessaoDelete = int.Parse(Console.ReadLine());
+                        controllerSessao.ExcluirSessao(idPacDelete, idSessaoDelete);
                         break;
 
                     case "0":

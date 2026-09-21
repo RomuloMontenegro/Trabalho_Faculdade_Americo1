@@ -7,10 +7,9 @@ namespace EnterPsi.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string NomeResponsavel { get; set; } // Para o portal de monitoramento
+        public string NomeResponsavel { get; set; }
         public string DemandaClinica { get; set; }
         
-        // Relacionamento: Um paciente tem várias sessões
         public List<Sessao> Sessoes { get; set; }
 
         public Paciente()
@@ -18,12 +17,11 @@ namespace EnterPsi.Models
             Sessoes = new List<Sessao>();
         }
 
-        // Aplicação do Padrão GRASP: Creator (Criador)
-        // Justificativa: A classe Paciente é a "Criadora" de Sessao porque ela agrega/contém as sessões.
         public void AdicionarSessao(DateTime data, string anotacoes)
         {
             Sessao novaSessao = new Sessao 
             { 
+                Id = Sessoes.Count + 1, // Gera o ID da Sessão automaticamente
                 PacienteId = this.Id, 
                 Data = data, 
                 AnotacoesClinicas = anotacoes 
