@@ -6,7 +6,7 @@ Aplicação de console desenvolvida em C# para otimizar e digitalizar o acompanh
 * Rômulo Azevedo Montenegro Neto
 * João Gabriel de Holanda Montenegro
 
-## ⚙️ Funcionalidades (2 CRUDs Completos)
+##  Funcionalidades (2 CRUDs Completos)
 O sistema atende aos requisitos de avaliação da disciplina através de dois fluxos principais com todas as operações essenciais (Create, Read, Update, Delete):
 
 ### Gestão de Pacientes (CRUD 1)
