@@ -6,32 +6,35 @@ Aplicação de console desenvolvida em C# para otimizar e digitalizar o acompanh
 * Rômulo Azevedo Montenegro Neto
 * João Gabriel de Holanda Montenegro
 
-## ⚙️ Funcionalidades (CRUD)
-O sistema foca na gestão do ciclo de vida do atendimento clínico através de dois fluxos principais:
+## ⚙️ Funcionalidades (2 CRUDs Completos)
+O sistema atende aos requisitos de avaliação da disciplina através de dois fluxos principais com todas as operações essenciais (Create, Read, Update, Delete):
 
-1. **Gestão de Pacientes (CRUD Completo)**
+1. **Gestão de Pacientes (CRUD 1)**
    * **Create:** Cadastro de novos pacientes com dados de identificação e demanda clínica.
    * **Read:** Listagem de todos os pacientes ativos no sistema.
-   * **Update:** Atualização do status e das demandas clínicas ao longo do tratamento.
-   * **Delete:** Arquivamento e exclusão de registros (alta ou interrupção do acompanhamento).
+   * **Update:** Atualização da demanda clínica ao longo do tratamento.
+   * **Delete:** Exclusão de registros do sistema.
 
-2. **Registro de Evolução / Sessões**
-   * Criação e associação de sessões de atendimento aos respectivos pacientes, registrando a data e as anotações clínicas diárias.
+2. **Registro de Evolução / Sessões (CRUD 2)**
+   * **Create:** Criação e associação de sessões de atendimento aos respectivos pacientes.
+   * **Read:** Listagem do histórico de sessões de um paciente específico.
+   * **Update:** Edição de anotações clínicas de sessões já realizadas.
+   * **Delete:** Exclusão de sessões registradas indevidamente.
 
 ## 🏛️ Arquitetura e Padrões de Projeto
-Para garantir a organização, coesão e baixo acoplamento do código, foram aplicados os seguintes padrões orientados a objetos:
+Para garantir a organização e o baixo acoplamento, cumprindo as exigências do projeto, aplicamos os seguintes padrões:
 
 ### Padrões GoF (Design Patterns)
-* **Singleton:** Aplicado na classe `ConexaoBanco` para garantir que apenas uma instância do gerenciador de dados seja criada e acessada globalmente durante a execução do sistema.
-* **Factory Method:** Utilizado na classe `PacienteFactory` para encapsular e centralizar a lógica de instanciação de novos pacientes.
+* **Singleton:** Aplicado na classe `ConexaoBanco` para garantir uma instância única global de acesso aos dados em memória.
+* **Factory Method:** Utilizado na classe `PacienteFactory` para centralizar a criação de instâncias de pacientes.
 
 ### Padrões GRASP
-* **Controller:** Implementado na classe `PacienteController`, que atua como intermediária entre a interface (menus de console) e a camada de dados, recebendo e coordenando as requisições.
-* **Creator:** Aplicado na classe `Paciente`, que assume a responsabilidade de instanciar objetos do tipo `Sessao`. Como as sessões dependem e estão contidas no histórico de um paciente, a classe agregadora atua como a sua criadora.
+* **Controller:** Implementado nas classes `PacienteController` e `SessaoController`. Ambas atuam como intermediárias entre a interface (menus de console) e a camada de dados, separando as regras de negócio.
+* **Creator:** Aplicado na classe `Paciente` para instanciar objetos `Sessao`, uma vez que a evolução clínica pertence fortemente ao escopo do histórico do paciente.
 
 ## 🚀 Como Executar
-1. Certifique-se de que possui o [.NET SDK](https://dotnet.microsoft.com/download) instalado no seu computador.
-2. Clone este repositório ou faça o download dos arquivos.
+1. Certifique-se de ter o [.NET SDK](https://dotnet.microsoft.com/download) instalado.
+2. Clone este repositório ou baixe os arquivos ZIP.
 3. Abra o terminal na pasta raiz do projeto.
 4. Execute o comando:
    ```bash
