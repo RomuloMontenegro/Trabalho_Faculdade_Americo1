@@ -17,6 +17,8 @@ namespace EnterPsi.Models
             Sessoes = new List<Sessao>();
         }
 
+    // GRASP Creator:
+    // E o GRASP Creator está aqui, pois o paciente guarda as sessões, então ele próprio as instancia
         public void AdicionarSessao(DateTime data, string anotacoes)
         {
             Sessao novaSessao = new Sessao 

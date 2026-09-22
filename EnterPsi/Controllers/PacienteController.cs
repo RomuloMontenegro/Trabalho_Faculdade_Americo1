@@ -6,11 +6,13 @@ using EnterPsi.Factories;
 
 namespace EnterPsi.Controllers
 {
-    // Aplicação do Padrão GRASP: Controller
-    // Justificativa: Recebe as requisições da interface de usuário e coordena as operações de CRUD.
-    public class PacienteController
-    {
-        private ConexaoBanco _banco = ConexaoBanco.GetInstancia();
+
+    // GRASP Controller
+    // O GRASP Controller centraliza as regras de negócio aqui
+public class PacienteController
+{
+    // GoF Singleton: Ponto de acesso global à instância única do banco em memória para evitar sobrescrita de dados.
+    private ConexaoBanco _banco = ConexaoBanco.GetInstancia();
 
         // CREATE
         public void CadastrarPaciente(string nome, string responsavel, string demanda)

@@ -32,6 +32,7 @@ namespace EnterPsi
                 string opcao = Console.ReadLine();
                 Console.WriteLine();
 
+               // GRASP (Baixo Acoplamento): O terminal apenas coleta os inputs do usuário e repassa para os controladores.
                 switch (opcao)
                 {
                     case "1":
@@ -74,6 +75,7 @@ namespace EnterPsi
                         
                         if(paciente != null) 
                         {
+                        // Padrão Creator: O Program.cs identifica o paciente, mas a responsabilidade de dar o "new Sessao" é da entidade agregadora (Paciente).
                             paciente.AdicionarSessao(DateTime.Now, anotacoes);
                             Console.WriteLine($"Sessão registrada com sucesso para {paciente.Nome}!");
                         } 
